@@ -1,6 +1,6 @@
 [project]
 name = "openai-websearch-mcp"
-version = "0.1.4"
+version = "0.2.0"
 description = "using openai websearch as mcp server"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -15,6 +15,7 @@ dependencies = [
 
 [project.scripts]
 openai-websearch-mcp = "openai_websearch_mcp:main"
+openai-websearch-mcp-install = "openai_websearch_mcp.cli:app"
 
 
 [build-system]

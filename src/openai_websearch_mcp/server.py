@@ -6,7 +6,6 @@ from pydantic_extra_types.timezone_name import TimeZoneName
 from pydantic import BaseModel
 
 mcp = FastMCP("OpenAI Web Search")
-client = OpenAI()
 
 
 class UserLocation(BaseModel):
@@ -25,6 +24,7 @@ def web_search(
     search_context_size: Literal["low", "medium", "high"] = "medium",
     user_location: UserLocation = None,
 ) -> list[str]:
+    client = OpenAI()
     response = client.responses.create(
         model=model,
         tools=[
