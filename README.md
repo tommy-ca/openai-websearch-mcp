@@ -85,7 +85,10 @@ Add to your Zed settings.json:
 "context_servers": [
   "openai-websearch-mcp": {
     "command": "uvx",
-    "args": ["openai-websearch-mcp"]
+    "args": ["openai-websearch-mcp"],
+    "env": {
+        "OPENAI_API_KEY": "your-api-key-here"
+    }
   }
 ],
 ```
@@ -98,7 +101,10 @@ Add to your Zed settings.json:
 "context_servers": {
   "openai-websearch-mcp": {
     "command": "python",
-    "args": ["-m", "openai_websearch_mcp"]
+    "args": ["-m", "openai_websearch_mcp"],
+    "env": {
+        "OPENAI_API_KEY": "your-api-key-here"
+    }
   }
 },
 ```
