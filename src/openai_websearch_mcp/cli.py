@@ -114,19 +114,18 @@ def install() -> None:
     """Install a current server in the Claude desktop app.
     """
 
-    if not get_claude_config_path():
-        logger.error("Claude app not found")
-        sys.exit(1)
-
     name = "openapi-websearch-mcp"
 
     env_dict = {}
-    home = os.environ['HOME']
+    local_bin = Path(Path.home(), ".local", "bin")
+    pyenv_shims = Path(Path.home(), ".pyenv", "shims")
     path = os.environ['PATH']
-    api_key = os.environ['OPENAI_API_KEY'] if "OPENAI_API_KEY" in os.environ else "your-api-key-here"
-    if home:
-        env_dict["PATH"] = f"{home}:{path}"
+    if sys.platform == "win32":
+        env_dict["PATH"] = f"{local_bin};{pyenv_shims};{path}"
+    else:
+        env_dict["PATH"] = f"{local_bin}:{pyenv_shims}:{path}"
 
+    api_key = os.environ['OPENAI_API_KEY'] if "OPENAI_API_KEY" in os.environ else "your-api-key-here"
     env_dict["OPENAI_API_KEY"] = api_key
 
     uv = which('uvx')
