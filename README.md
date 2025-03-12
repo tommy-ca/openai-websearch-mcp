@@ -1,79 +1,114 @@
-# OpenAI WebSearch MCP
+# OpenAI WebSearch MCP Servr
 
-一个使用FastMCP框架的模型控制协议(MCP)服务器，旨在将OpenAI的网络搜索功能集成到Claude等不具备网络搜索能力的AI模型中。
+This MCP server provides access to OpenAI's websearch functionality through the Model Context Protocol. It allows AI assistants to search the web during conversations with users, providing up-to-date information that may not be available in the assistant's training data. The server can be installed and configured for use with Claude.app or Zed editor.
 
-## 项目概述
+### Available Tools
 
-OpenAI WebSearch MCP利用OpenAI的`web_search_preview`工具，使其他AI模型（如Claude）能够执行网络搜索并在回答中利用最新的网络信息。该项目通过FastMCP框架实现，提供了一个简单的API，可以轻松集成到现有的AI工作流程中。
+- `web_search` - Call openai websearch as tool.
+  - Required arguments:
+    - `type` (string): web_search_preview
+    - `search_context_size` (string): High level guidance for the amount of context window space to use for the search. One of low, medium, or high. medium is the default.
+    - `user_location` (object or null)
+      - `type` (string): The type of location > approximation. Always approximate.
+      - `city` (string): Free text input for the city of the user, e.g. San Francisco.
+      - `country` (string): The two-letter ISO country code of the user, e.g. US.
+      - `region` (string): Free text input for the region of the user, e.g. California.
+      - `timezone` (string): The IANA timezone of the user, e.g. America/Los_Angeles.
 
-## 功能特点
+## Installation
 
-- 通过MCP协议为Claude等AI模型提供网络搜索能力
-- 利用OpenAI的网络搜索API获取实时网络信息
-- 支持自定义搜索参数和用户位置设置
-- 基于FastMCP框架，易于扩展和维护
+### Using uv (recommended)
 
-## 安装
+When using [`uv`](https://docs.astral.sh/uv/) no specific installation is needed. We will
+use [`uvx`](https://docs.astral.sh/uv/guides/tools/) to directly run *openai-websearch-mcp*.
 
-本项目使用`uv`进行包管理，确保您已安装了Python和uv。
+### Using PIP
 
-1. 克隆仓库：
-   ```bash
-   git clone https://github.com/yourusername/openai-websearch-mcp.git
-   cd openai-websearch-mcp
-   ```
-
-2. 安装依赖：
-   ```bash
-   uv sync --frozen
-   ```
-
-## 配置
-
-1. 设置OpenAI API密钥：
-   ```bash
-   export OPENAI_API_KEY='your-api-key-here'
-   ```
-
-## 使用方法
-
-### 启动MCP服务器测试
+Alternatively you can install `openai-websearch-mcp` via pip:
 
 ```bash
-fastmcp run main.py
-
-# Or run with inspector
-fastmcp dev main.py
+pip install openai-websearch-mcp
 ```
 
-服务器默认在`localhost:5173`启动。
+After installation, you can run it as a script using:
 
-### 在客户端中使用
-
-在与Claude或其他AI模型的交互中使用MCP客户端调用网络搜索功能：
-
-```python
-fastmcp install server.py -e API_KEY=your-api-key
+```bash
+python -m openai-websearch-mcp
 ```
 
-## API参考
+## Configuration
 
-### 网络搜索工具属性
+### Configure for Claude.app
 
-- `type`: 搜索工具类型，始终为`web_search_preview`
-- `search_context_size`: 搜索上下文窗口大小，可选值为"low"、"medium"、"high"，默认为"medium"
-- `user_location`: 用户位置参数（可选）
-  - `type`: 位置近似类型，始终为"approximate"
-  - `city`: 用户所在城市，例如"Shanghai"
-  - `country`: 用户所在国家的两字母ISO代码，例如"CN"
-  - `region`: 用户所在地区，例如"Shanghai"
-  - `timezone`: 用户IANA时区，例如"Asia/Shanghai"
+Add to your Claude settings:
+
+<details>
+<summary>Using uvx</summary>
+
+```json
+"mcpServers": {
+  "time": {
+    "openai-websearch-mcp": "uvx",
+    "args": ["openai-websearch-mcp"],
+    "env": {
+        "OPENAI_API_KEY": "your-api-key-here"
+    }
+  }
+}
+```
+</details>
+
+<details>
+<summary>Using pip installation</summary>
+
+```json
+"mcpServers": {
+  "openai-websearch-mcp": {
+    "command": "python",
+    "args": ["-m", "openai_websearch_mcp"],
+    "env": {
+        "OPENAI_API_KEY": "your-api-key-here"
+    }
+  }
+}
+```
+</details>
+
+### Configure for Zed
+
+Add to your Zed settings.json:
+
+<details>
+<summary>Using uvx</summary>
+
+```json
+"context_servers": [
+  "openai-websearch-mcp": {
+    "command": "uvx",
+    "args": ["openai-websearch-mcp"]
+  }
+],
+```
+</details>
+
+<details>
+<summary>Using pip installation</summary>
+
+```json
+"context_servers": {
+  "openai-websearch-mcp": {
+    "command": "python",
+    "args": ["-m", "openai_websearch_mcp"]
+  }
+},
+```
+</details>
 
 
-## 许可证
+## Debugging
 
-[MIT License](LICENSE)
+You can use the MCP inspector to debug the server. For uvx installations:
 
-## 贡献
-
-欢迎贡献代码、报告问题或提出改进建议！请fork本仓库并提交拉取请求。
+```bash
+npx @modelcontextprotocol/inspector uvx openai-websearch-mcp
+```
