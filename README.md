@@ -65,7 +65,7 @@ Add to your Claude settings:
 "mcpServers": {
   "openai-websearch-mcp": {
     "command": "python",
-    "args": ["-m", "openai_websearch_mcp"],
+    "args": ["-m", "mcp_openai_websearch"],
     "env": {
         "OPENAI_API_KEY": "your-api-key-here"
     }
@@ -101,7 +101,7 @@ Add to your Zed settings.json:
 "context_servers": {
   "openai-websearch-mcp": {
     "command": "python",
-    "args": ["-m", "openai_websearch_mcp"],
+    "args": ["-m", "mcp_openai_websearch"],
     "env": {
         "OPENAI_API_KEY": "your-api-key-here"
     }
