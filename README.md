@@ -47,8 +47,8 @@ Add to your Claude settings:
 
 ```json
 "mcpServers": {
-  "time": {
-    "openai-websearch-mcp": "uvx",
+  "openai-websearch-mcp": {
+    "command": "uvx",
     "args": ["openai-websearch-mcp"],
     "env": {
         "OPENAI_API_KEY": "your-api-key-here"
