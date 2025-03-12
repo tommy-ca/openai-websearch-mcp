@@ -40,6 +40,11 @@ python -m openai-websearch-mcp
 
 ### Configure for Claude.app
 
+!!!can using command auto update configure file
+```bash
+uv run --with openai-websearch-mcp openai-websearch-mcp-install
+```
+
 Add to your Claude settings:
 
 <details>

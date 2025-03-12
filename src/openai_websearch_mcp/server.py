@@ -5,8 +5,11 @@ from openai import OpenAI
 from pydantic_extra_types.timezone_name import TimeZoneName
 from pydantic import BaseModel
 
-mcp = FastMCP("OpenAI Web Search")
-
+mcp = FastMCP(
+    name="OpenAI Web Search",
+    instructions="This MCP server provides access to OpenAI's websearch functionality through the Model Context Protocol."
+)
+client = OpenAI()
 
 class UserLocation(BaseModel):
     type: Literal["approximate"] = "approximate"
@@ -16,7 +19,10 @@ class UserLocation(BaseModel):
     timezone: TimeZoneName
 
 
-@mcp.tool()
+@mcp.tool(
+    name="web_search",
+    description=" It allows AI assistants to search the web during conversations with users",
+)
 def web_search(
     input: str,
     model: Literal["gpt-4o", "gpt-4o-mini"] = "gpt-4o-mini",
@@ -24,7 +30,6 @@ def web_search(
     search_context_size: Literal["low", "medium", "high"] = "medium",
     user_location: UserLocation = None,
 ) -> list[str]:
-    client = OpenAI()
     response = client.responses.create(
         model=model,
         tools=[
