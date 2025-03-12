@@ -123,15 +123,22 @@ def install() -> None:
     env_dict = {}
     home = os.environ['HOME']
     path = os.environ['PATH']
+    api_key = os.environ['OPENAI_API_KEY'] if "OPENAI_API_KEY" in os.environ else "your-api-key-here"
     if home:
         env_dict["PATH"] = f"{home}:{path}"
 
-    uv = which('uv')
-    command = uv if uv else "uv"
+    env_dict["OPENAI_API_KEY"] = api_key
+
+    uv = which('uvx')
+    command = uv if uv else "uvx"
+    args = [name]
+
+    # print("------------update_claude_config", command, args, env_dict)
 
     if update_claude_config(
         command,
         name,
+        args,
         env_vars=env_dict,
     ):
         logger.info(f"Successfully installed {name} in Claude app")
