@@ -9,7 +9,6 @@ mcp = FastMCP(
     name="OpenAI Web Search",
     instructions="This MCP server provides access to OpenAI's websearch functionality through the Model Context Protocol."
 )
-client = OpenAI()
 
 class UserLocation(BaseModel):
     type: Literal["approximate"] = "approximate"
@@ -30,6 +29,7 @@ def web_search(
     search_context_size: Literal["low", "medium", "high"] = "medium",
     user_location: UserLocation = None,
 ) -> list[str]:
+    client = OpenAI()
     response = client.responses.create(
         model=model,
         tools=[

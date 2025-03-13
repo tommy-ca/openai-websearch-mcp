@@ -1,5 +1,6 @@
 import json
 import sys
+import getpass
 from pathlib import Path
 from typing import Optional, Dict
 import logging
@@ -8,6 +9,7 @@ import os
 import platform
 import typer
 from shutil import which
+from openai import OpenAI
 
 
 logger = logging.getLogger(__file__)
@@ -128,7 +130,17 @@ def install() -> None:
     else:
         env_dict["PATH"] = f"{local_bin}:{pyenv_shims}:{python_bin}:{path}"
 
-    api_key = os.environ['OPENAI_API_KEY'] if "OPENAI_API_KEY" in os.environ else "your-api-key-here"
+    api_key = os.environ['OPENAI_API_KEY'] if "OPENAI_API_KEY" in os.environ else ""
+    while api_key == "":
+        api_key = getpass.getpass("Enter your OpenAI API key: ")
+        if api_key != "":
+            client = OpenAI(api_key=api_key)
+            try:
+                client.models.list()
+            except Exception as e:
+                logger.error(f"Failed to authenticate with OpenAI API: {str(e)}")
+                api_key = ""
+
     env_dict["OPENAI_API_KEY"] = api_key
 
     uv = which('uvx', path=env_dict['PATH'])
