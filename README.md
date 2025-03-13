@@ -2,7 +2,24 @@
 
 This MCP server provides access to OpenAI's websearch functionality through the Model Context Protocol. It allows AI assistants to search the web during conversations with users, providing up-to-date information that may not be available in the assistant's training data. The server can be installed and configured for use with Claude.app or Zed editor.
 
-### Available Tools
+## One click installation & Configuration
+
+### Claude 
+
+!!Can using this command auto update configure file（Recommend）
+```bash
+OPENAI_API_KEY=sk-xxxx uv run --with uv --with openai-websearch-mcp openai-websearch-mcp-install
+```
+sk-xxxx is your API key. You can get it from [openai's open platform](https://platform.openai.com/)
+
+### Cursor
+Conming soon
+
+### Windsurf
+Conming soon
+
+
+## Available Tools
 
 - `web_search` - Call openai websearch as tool.
   - Required arguments:
@@ -14,24 +31,6 @@ This MCP server provides access to OpenAI's websearch functionality through the 
       - `country` (string): The two-letter ISO country code of the user, e.g. US.
       - `region` (string): Free text input for the region of the user, e.g. California.
       - `timezone` (string): The IANA timezone of the user, e.g. America/Los_Angeles.
-
-
-## One click installation & Configuration
-
-### Claude
-
-!!Can using this command auto update configure file （recommend）
-```bash
-OPENAI_API_KEY=sk-xxxx uv run --with uv --with openai-websearch-mcp openai-websearch-mcp-install
-```
-
-sk-xxxx is your API key. You can get it from [openai's open platform](https://platform.openai.com/)
-
-### Cursor
-Conming soon
-
-### Windsurf
-Conming soon
 
 
 ## Manual installation and configuration
