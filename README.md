@@ -1,4 +1,4 @@
-# OpenAI WebSearch MCP Servr
+# OpenAI WebSearch MCP Server
 
 This MCP server provides access to OpenAI's websearch functionality through the Model Context Protocol. It allows AI assistants to search the web during conversations with users, providing up-to-date information that may not be available in the assistant's training data. The server can be installed and configured for use with Claude.app or Zed editor.
 
@@ -15,40 +15,30 @@ This MCP server provides access to OpenAI's websearch functionality through the 
       - `region` (string): Free text input for the region of the user, e.g. California.
       - `timezone` (string): The IANA timezone of the user, e.g. America/Los_Angeles.
 
-## Installation
 
-### Using uv (recommended)
+## One click installation & Configuration
 
-When using [`uv`](https://docs.astral.sh/uv/) no specific installation is needed. We will
-use [`uvx`](https://docs.astral.sh/uv/guides/tools/) to directly run *openai-websearch-mcp*.
+### Claude
 
-### Using PIP
-
-Alternatively you can install `openai-websearch-mcp` via pip:
-
-```bash
-pip install openai-websearch-mcp
-```
-
-After installation, you can run it as a script using:
-
-```bash
-python -m openai-websearch-mcp
-```
-
-## Configuration
-
-### Configure for Claude.app
-
-!!!can using command auto update configure file
+!!Can using this command auto update configure file （recommend）
 ```bash
 OPENAI_API_KEY=sk-xxxx uv run --with uv --with openai-websearch-mcp openai-websearch-mcp-install
 ```
+### Cursor
+Conming soon
+
+### Windsurf
+Conming soon
+
+
+## Manual installation and configuration
+
+Please make sure `uvx` is installed before installation
 
 Add to your Claude settings:
 
-<details>
-<summary>Using uvx</summary>
+
+1、Using uvx
 
 ```json
 "mcpServers": {
@@ -61,10 +51,16 @@ Add to your Claude settings:
   }
 }
 ```
-</details>
 
-<details>
-<summary>Using pip installation</summary>
+2、Using pip installation
+
+1）install `openai-websearch-mcp` via pip:
+
+```bash
+pip install openai-websearch-mcp
+```
+
+2）modify your Claude settings
 
 ```json
 "mcpServers": {
@@ -77,14 +73,12 @@ Add to your Claude settings:
   }
 }
 ```
-</details>
 
 ### Configure for Zed
 
 Add to your Zed settings.json:
 
-<details>
-<summary>Using uvx</summary>
+Using uvx
 
 ```json
 "context_servers": [
@@ -97,10 +91,8 @@ Add to your Zed settings.json:
   }
 ],
 ```
-</details>
 
-<details>
-<summary>Using pip installation</summary>
+Using pip installation
 
 ```json
 "context_servers": {
@@ -113,8 +105,6 @@ Add to your Zed settings.json:
   }
 },
 ```
-</details>
-
 
 ## Debugging
 
