@@ -114,7 +114,7 @@ def install() -> None:
     """Install a current server in the Claude desktop app.
     """
 
-    name = "openapi-websearch-mcp"
+    name = "openai-websearch-mcp"
 
     env_dict = {}
     local_bin = Path(Path.home(), ".local", "bin")
@@ -135,8 +135,8 @@ def install() -> None:
     # print("------------update_claude_config", command, args, env_dict)
 
     if update_claude_config(
-        command,
         name,
+        command,
         args,
         env_vars=env_dict,
     ):
