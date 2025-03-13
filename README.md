@@ -24,6 +24,9 @@ This MCP server provides access to OpenAI's websearch functionality through the 
 ```bash
 OPENAI_API_KEY=sk-xxxx uv run --with uv --with openai-websearch-mcp openai-websearch-mcp-install
 ```
+
+sk-xxxx is your API key. You can get it from [openai's open platform](https://platform.openai.com/)
+
 ### Cursor
 Conming soon
 
