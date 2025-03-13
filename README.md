@@ -42,7 +42,7 @@ python -m openai-websearch-mcp
 
 !!!can using command auto update configure file
 ```bash
-uv run --with openai-websearch-mcp openai-websearch-mcp-install
+OPENAI_API_KEY=sk-xxxx uv run --with uv --with openai-websearch-mcp openai-websearch-mcp-install
 ```
 
 Add to your Claude settings:
