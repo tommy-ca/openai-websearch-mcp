@@ -5,6 +5,7 @@ from typing import Optional, Dict
 import logging
 import sys
 import os
+import platform
 import typer
 from shutil import which
 
@@ -120,15 +121,17 @@ def install() -> None:
     local_bin = Path(Path.home(), ".local", "bin")
     pyenv_shims = Path(Path.home(), ".pyenv", "shims")
     path = os.environ['PATH']
+    python_version = platform.python_version()
+    python_bin = Path(Path.home(), "Library", "Python", python_version, "bin")
     if sys.platform == "win32":
-        env_dict["PATH"] = f"{local_bin};{pyenv_shims};{path}"
+        env_dict["PATH"] = f"{local_bin};{pyenv_shims};{python_bin};{path}"
     else:
-        env_dict["PATH"] = f"{local_bin}:{pyenv_shims}:{path}"
+        env_dict["PATH"] = f"{local_bin}:{pyenv_shims}:{python_bin}:{path}"
 
     api_key = os.environ['OPENAI_API_KEY'] if "OPENAI_API_KEY" in os.environ else "your-api-key-here"
     env_dict["OPENAI_API_KEY"] = api_key
 
-    uv = which('uvx')
+    uv = which('uvx', path=env_dict['PATH'])
     command = uv if uv else "uvx"
     args = [name]
 
