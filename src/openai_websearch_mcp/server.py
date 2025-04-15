@@ -1,14 +1,15 @@
-from pydantic import BaseModel
 from typing import Literal
+
 from mcp.server.fastmcp import FastMCP
 from openai import OpenAI
-from pydantic_extra_types.timezone_name import TimeZoneName
 from pydantic import BaseModel
+from pydantic_extra_types.timezone_name import TimeZoneName
 
 mcp = FastMCP(
     name="OpenAI Web Search",
-    instructions="This MCP server provides access to OpenAI's websearch functionality through the Model Context Protocol."
+    instructions="This MCP server provides access to OpenAI's websearch functionality through the Model Context Protocol.",
 )
+
 
 class UserLocation(BaseModel):
     type: Literal["approximate"] = "approximate"
@@ -25,7 +26,9 @@ class UserLocation(BaseModel):
 def web_search(
     input: str,
     model: Literal["gpt-4o", "gpt-4o-mini"] = "gpt-4o-mini",
-    type: Literal["web_search_preview", "web_search_preview_2025_03_11"] = "web_search_preview",
+    type: Literal[
+        "web_search_preview", "web_search_preview_2025_03_11"
+    ] = "web_search_preview",
     search_context_size: Literal["low", "medium", "high"] = "medium",
     user_location: UserLocation = None,
 ) -> list[str]:
@@ -42,4 +45,3 @@ def web_search(
         input=input,
     )
     return response.output_text
-

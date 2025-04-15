@@ -1,23 +1,6 @@
 # OpenAI WebSearch MCP Server
 
-This MCP server provides access to OpenAI's websearch functionality through the Model Context Protocol. It allows AI assistants to search the web during conversations with users, providing up-to-date information that may not be available in the assistant's training data. The server can be installed and configured for use with Claude.app or Zed editor.
-
-## One click installation & Configuration
-
-### Claude 
-
-!!Can using this command auto update configure file（Recommend）
-```bash
-OPENAI_API_KEY=sk-xxxx uv run --with uv --with openai-websearch-mcp openai-websearch-mcp-install
-```
-sk-xxxx is your API key. You can get it from [openai's open platform](https://platform.openai.com/)
-
-### Cursor
-Conming soon
-
-### Windsurf
-Conming soon
-
+This MCP server provides access to OpenAI's websearch functionality through the Model Context Protocol. It allows AI assistants to search the web during conversations with users, providing up-to-date information that may not be available in the assistant's training data.
 
 ## Available Tools
 
@@ -32,15 +15,11 @@ Conming soon
       - `region` (string): Free text input for the region of the user, e.g. California.
       - `timezone` (string): The IANA timezone of the user, e.g. America/Los_Angeles.
 
+## Installation and Configuration
 
-## Manual installation and configuration
+You will need to configure your MCP client to run this server. This typically involves specifying the command to execute the server and providing your OpenAI API key as an environment variable (`OPENAI_API_KEY`).
 
-Please make sure `uvx` is installed before installation
-
-Add to your Claude settings:
-
-
-1、Using uvx
+Example using `uvx` (ensure `uvx` is installed):
 
 ```json
 "mcpServers": {
@@ -54,15 +33,7 @@ Add to your Claude settings:
 }
 ```
 
-2、Using pip installation
-
-1）install `openai-websearch-mcp` via pip:
-
-```bash
-pip install openai-websearch-mcp
-```
-
-2）modify your Claude settings
+Example using standard Python installation (install with `pip install openai-websearch-mcp`):
 
 ```json
 "mcpServers": {
@@ -76,37 +47,7 @@ pip install openai-websearch-mcp
 }
 ```
 
-### Configure for Zed
-
-Add to your Zed settings.json:
-
-Using uvx
-
-```json
-"context_servers": [
-  "openai-websearch-mcp": {
-    "command": "uvx",
-    "args": ["openai-websearch-mcp"],
-    "env": {
-        "OPENAI_API_KEY": "your-api-key-here"
-    }
-  }
-],
-```
-
-Using pip installation
-
-```json
-"context_servers": {
-  "openai-websearch-mcp": {
-    "command": "python",
-    "args": ["-m", "openai_websearch_mcp"],
-    "env": {
-        "OPENAI_API_KEY": "your-api-key-here"
-    }
-  }
-},
-```
+Refer to your specific MCP client's documentation for details on adding context servers. You can obtain an OpenAI API key from [openai's open platform](https://platform.openai.com/).
 
 ## Debugging
 

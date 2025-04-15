@@ -1,16 +1,15 @@
-
 # Web search
+
 This tool searches the web for relevant results to use in a response. Learn more about the web search tool.
 
-
 ## properties
+
 `type` string
 
 > Required
 > The type of the web search tool. One of:
 > web_search_preview
 > web_search_preview_2025_03_11
-
 
 `search_context_size` string
 
@@ -23,8 +22,7 @@ This tool searches the web for relevant results to use in a response. Learn more
 > Optional
 > Approximate location parameters > for the search.
 
-
-properties of `user_location`   
+properties of `user_location`  
 `type` string
 
 > Required
